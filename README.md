@@ -1,15 +1,12 @@
-
-# CiberRato Robot Simulation Environment <br/> Universidade de Aveiro / IEETA 
+# YAAVS: Yet Another Autonomous Vehicles Simulator  
 
 ## Information
 
-CiberRato Robot Simulation Environment simulates the movement
-of robots inside a labyrinth.  Robots objective is to go from their
-starting position to beacon area and then return to their start position.
+YAAVS simulates the movement of autonomous vehicles inside a mine.  
+Robots objective is to go from their starting position to beacon area and then return to their start position.
 
-The MicroRato competition
-[http://microrato.ua.pt/], held annually at Aveiro University, 
-uses these these tools for its Explorer league.
+This simulator is currently (2022) used by the *Autonomous and cooperative vehicular systems* course (DAT295/DIT669) at **Chalmers University of Technology**.
+See the [project specifications](docs/project2022.md).
 
 ## Contents
 
@@ -38,7 +35,6 @@ sudo apt-get install build-essential cmake qt5-default qtmultimedia5-dev
 
 Then in the repository base dir, execute:
 ```bash
-mkdir build
 cd build
 cmake ..
 make
@@ -49,37 +45,6 @@ To run the simulator, Viewer and C++ agent, execute (at the repository base dir)
 ./startAll
 ```
 
+## Credits
 
-## Authors
-
-* Nuno Lau,
-  University of Aveiro,
-  nunolau@ua.pt
-
-* Artur C. Pereira,
-  University of Aveiro,
-  artur@ua.pt
-
-* Andreia Melo,
-  University of Aveiro,
-  abmelo@criticalsoftware.com
-
-* Antonio Neves,
-  University of Aveiro,
-  an@ua.pt
-
-* Joao Figueiredo,
-  University of Aveiro
-  joao.figueiredo@ieeta.pt
-
-* Miguel Rodrigues,
-  University of Aveiro,
-  miguel.rodrigues@ua.pt
-
-* Eurico Pedrosa,
-  University of Aveiro,
-  efp@ua.pt
-
- Copyright (C) 2001-2022 Universidade de Aveiro
-
-
+YAAVS is based on [CiberRato](https://github.com/iris-ua/ciberRatoTools) Robot Simulation Environment by Universidade de Aveiro / IEETA.
