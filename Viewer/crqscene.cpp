@@ -59,7 +59,7 @@ CRQScene::CRQScene( CRLab *lb, QObject * parent  )
     }
     setSceneRect(0, 0, lb->labSize().x() * zoom, lb->labSize().y() *zoom );
     setBackgroundBrush( QColor( 255, 255, 255 ) );
-    skin("skins/default/default.skin");
+    skin("skins/mine/default.skin");
     setBackgroundBrush( QColor( 255, 255, 255 ) );
 
     QGraphicsView view (this);

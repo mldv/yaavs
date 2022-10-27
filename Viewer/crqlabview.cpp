@@ -5,7 +5,7 @@
 #include <QMessageBox>
 #include <QColorDialog>
 
-#include"Comm/crqcomm.h"
+#include "Comm/crqcomm.h"
 #include "logotipo.xpm"
 
 CRQLabView::CRQLabView(CRMainParameters *p, QWidget *parent) :
@@ -19,7 +19,7 @@ CRQLabView::CRQLabView(CRMainParameters *p, QWidget *parent) :
 #endif
     param = p;
     soundStatus = 'y';
-    skinFileName = "skins/default/default.skin";
+    skinFileName = "skins/mine/default.skin";
 //    skinFileName = "skins/skin-base/skin-base.skin";
     QPixmap icon( ( const char** ) logotipo_xpm );
     setWindowIcon(icon);
