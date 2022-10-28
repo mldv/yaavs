@@ -317,12 +317,15 @@ void cbSimulatorGUI::on_actionLaunch_Viewer_toggled(bool arg1)
         ui->actionLaunch_Viewer->setToolTip("Close Viewer");
         ui->actionControl_Panel->setChecked(true);
         QStringList viewerArgs;
-        viewerArgs << "-autoconnect";
+        viewerArgs << "--autoconnect";
 #ifdef MicWindows
-        viewerProc.start("../Viewer/Viewer.exe", viewerArgs);
+        viewerProc.setProgram("./Viewer.exe");
 #else
-        viewerProc.start("../Viewer/Viewer", viewerArgs);
+        viewerProc.setProgram("./Viewer");
 #endif
+        viewerProc.setWorkingDirectory("../Viewer");
+        viewerProc.setArguments(viewerArgs);
+        viewerProc.start();
     }
     else
     {
@@ -344,9 +347,9 @@ void cbSimulatorGUI::processViewerError(QProcess::ProcessError err)
         appendMessage("Viewer has crashed", true);
         break;
     default:
-        appendMessage("An error occured with Viewer", true);
+        appendMessage("An error occurred with Viewer", true);
     }
-
+    cerr << "Error with launching Viewer. Exit code: " << err << '\n';
     ui->actionLaunch_Viewer->setChecked(false);
 }
 
