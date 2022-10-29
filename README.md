@@ -5,7 +5,7 @@
 YAAVS simulates the movement of autonomous vehicles inside a mine.  
 Robots objective is to go from their starting position to beacon area and then return to their start position.
 
-This simulator is currently (2022) used by the *Autonomous and cooperative vehicular systems* course (DAT295/DIT669) at **Chalmers University of Technology**.
+This simulator is currently (2022) used in the *Autonomous and cooperative vehicular systems* course (DAT295/DIT669) at **Chalmers University of Technology**.
 See the [project specifications](docs/project2022.md).
 
 ## Contents

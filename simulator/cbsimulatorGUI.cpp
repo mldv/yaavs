@@ -349,7 +349,7 @@ void cbSimulatorGUI::processViewerError(QProcess::ProcessError err)
     default:
         appendMessage("An error occurred with Viewer", true);
     }
-    cerr << "Error with launching Viewer. Exit code: " << err << '\n';
+    cerr << "Exit code for Viewer process: " << err << '\n';
     ui->actionLaunch_Viewer->setChecked(false);
 }
 

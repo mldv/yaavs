@@ -19,9 +19,9 @@
 */
 
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <fstream>
-#include <signal.h>
+#include <csignal>
 
 #include <QtGui>
 #include <QApplication>
@@ -44,7 +44,7 @@
 
 #endif
 
-#include <stdio.h>
+#include <cstdio>
 
 #include <qxml.h>
 #include <qstring.h>

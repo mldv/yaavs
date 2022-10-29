@@ -23,6 +23,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <csignal>
 #include "crqscene.h"
 #include "crqlabview.h"
 #include "crmainparameters.h"
@@ -37,6 +38,14 @@ void ParameterError( char *appName )
     cerr << "\n\tInvalid parameters\n";
 	cerr << "\tTry `" << appName << " -help' for more information.\n\n";
     exit(1);
+}
+
+void signalHandler( int signum ) {
+    cout << "Interrupt signal (" << signum << ") received.\n";
+
+
+
+    exit(signum);
 }
 
 int main( int argc, char **argv )

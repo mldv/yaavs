@@ -48,7 +48,8 @@ const double irSensorDefaultAngles[NUM_IR_SENSORS]={0, M_PI/3, -M_PI/3, M_PI};
  */
 class cbRobot : public cbClient
 {
-    Q_OBJECT    // enable slots and signals
+    Q_OBJECT
+    // enable slots and signals
 public:
 	// enum State and StrState (in cbrobot.cpp) must be compatible!!!
 	enum State {STOPPED=0, RUNNING, WAITOTHERS, RETURNING, FINISHED, REMOVED};
@@ -156,6 +157,8 @@ public:
     void updateStateLineControl2022();
     void updateStateLineMapping2022();
     void updateStateLinePlanning2022();
+    void updateStateMining2022();
+
 
 	void updateSensors();
 

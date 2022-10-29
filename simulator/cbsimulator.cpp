@@ -958,32 +958,31 @@ void cbSimulator::Commit()
 	}
 }
 
-void cbSimulator::UpdateScores()
-{
-	*grAux=*graph;// all computation is based in grAux, graph keeps the graph nodes without final points
-	for (unsigned int i=0; i<robots.size(); i++) // for all robots
-	{
-		cbRobot *robot = robots[i];
+void cbSimulator::UpdateScores() {
+    *grAux = *graph;// all computation is based in grAux, graph keeps the graph nodes without final points
+    for (unsigned int i = 0; i < robots.size(); i++) // for all robots
+    {
+        cbRobot *robot = robots[i];
         if (robot == 0) continue;
 
-        switch(scoring) {
-          case 1:
-            robot->updateScoreControl();         // CONTROL
-            break;
-          case 4:
-            robot->updateScoreLineControl2022(); // LINE CONTROL
-            break;
-          case 5:
-          case 6:
-            robot->updateScoreLineMappingPlanning2022(); // LINE MAPPING PLANNING
-            break;
+        switch (scoring) {
+            case 1:
+                robot->updateScoreControl();         // CONTROL
+                break;
+            case 4:
+                robot->updateScoreLineControl2022(); // LINE CONTROL
+                break;
+            case 5:
+            case 6:
+                robot->updateScoreLineMappingPlanning2022(); // LINE MAPPING PLANNING
+                break;
 
-          default:
-           robot->updateScoreCompetitive();      // COMPETITIVE
-           //robot->updateScore();               // COOPERATIVE
-           break;
+            default:
+                // robot->updateScoreCompetitive();      // COMPETITIVE
+                robot->updateScore();               // COOPERATIVE
+                break;
         }
-	}
+    }
 }
 
 /*!
@@ -1049,51 +1048,52 @@ void cbSimulator::UpdateViews()
 */
 void cbSimulator::UpdateState()
 {
-    if(simTime() <= curTime() && isTimed()) {
+    if (simTime() <= curTime() && isTimed()) {
         nextState = FINISHED;
-	    if(logging) Log(*logStream, false); // last loginfo item - should not contain robot actions
-	    closeLog();
+        if (logging) Log(*logStream, false); // last loginfo item - should not contain robot actions
+        closeLog();
     }
 
     if (nextState != curState) {
         if (curState == INIT)
-            emit simReady(true);
+                emit simReady(true);
         curState = nextState;
         emit stateChanged(curStateAsString());
     }
 
-    for (unsigned int i=0; i<robots.size(); i++)
-	{
-		cbRobot *robot = robots[i];
-		if (robot == 0) continue;
+    for (unsigned int i = 0; i < robots.size(); i++) {
+        cbRobot *robot = robots[i];
+        if (robot == 0) continue;
 
-        switch(scoring) {
-          case 1:
-            robot->updateStateControl();                  // CONTROL
-             break;
-          case 2:
-            robot->updateStateMapping();                  // MAPPING
-            break;
-          case 3:
-            robot->updateStatePlanning();                 // PLANNING
-            break;
-          case 4:
-            robot->updateStateLineControl2022();          // LINE CONTROL
-             break;
-          case 5:
-            robot->updateStateLineMapping2022();          // LINE MAPPING
-             break;
-          case 6:
-            robot->updateStateLinePlanning2022();         // LINE PLANNING
-             break;
-          default:
-            robot->updateStateCompetitive();    // COMPETITIVE
-            //robot->updateState();               // COOPERATIVE
-            break;
+        //TODO: change scoring to a string for clarity
+        switch (scoring) {
+            case 1:
+                robot->updateStateControl();                  // CONTROL
+                break;
+            case 2:
+                robot->updateStateMapping();                  // MAPPING
+                break;
+            case 3:
+                robot->updateStatePlanning();                 // PLANNING
+                break;
+            case 4:
+                robot->updateStateLineControl2022();          // LINE CONTROL
+                break;
+            case 5:
+                robot->updateStateLineMapping2022();          // LINE MAPPING
+                break;
+            case 6:
+                robot->updateStateLinePlanning2022();         // LINE PLANNING
+                break;
+            case 7:
+                robot->updateStateMining2022();               // MINING
+                break;
+            default:
+                robot->updateStateCompetitive();              // COMPETITIVE
+                //robot->updateState();                       // COOPERATIVE
+                break;
         }
-        
-	}
-
+    }
 }
 
 void cbSimulator::Log(ostream &log, bool withActions)
