@@ -147,6 +147,7 @@ public:
 	void updateScoreControl();
 	void updateScoreLineControl2022();
     void updateScoreLineMappingPlanning2022();
+    void updateScoreMining2022();
 
 
 	void updateState();
@@ -208,6 +209,7 @@ public:
     static int collisionRobotPenalty;
     static int targetReward;
     static int homeReward;
+    static int unloadingReward;
 
 protected:  // class data members
 
@@ -258,6 +260,8 @@ protected:  // class data members
     bool collisionRobot;    // indicates that next position results in a collision with another robot
 	bool collisionPrevCycle;// indicates that in previous cycle robot has collided
 	unsigned int collisionCount;	// number of collisions
+
+    int unloadingCount;
 
 	unsigned int nSensorsRequested;
 

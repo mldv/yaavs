@@ -1,27 +1,28 @@
 
-# Details about YAAVS for DAT295@Chalmers2022
+# YAAVS description
+
+YAAVS is the acronym of Yet Another Autonomous Vehicle Simulator.
+This software is based on the [CiberRato](https://github.com/iris-ua/ciberRatoTools) Robot Simulation Environment by Universidade de Aveiro / IEETA.
 
 ## Introduction
 
-The YAAVS system creates a virtual mine. The mine is a 2D arena populated by walls, where a starting grid, areas with gold, and an unloading area are integrated. 
-The system also creates the virtual bodies of the mining vehicles. 
-Participants must provide the software agents which control the movement of the mining vehicles, in order to accomplish a task.
+The YAAVS system creates a virtual arena where vehicles operate. 
+The arena represents a mine, and it is a 2D space populated by walls and special areas. 
+The system also creates the virtual bodies of the mining vehicles (also called *robots*). 
+Users must provide the software agents which control the movement of the vehicles, in order to accomplish some tasks.
 
-All virtual mining vehicles have the same kind of body. 
-It is composed of a circular base, equipped with sensors and actuators. 
+All vehicles have the same kind of body, 
+which is composed of a circular base, equipped with sensors and actuators. 
+
 The simulator:
 * sends sensor measures to the agents, 
 * receives and applies actuating orders from the agents. 
 
-A fleet of five mining vehicles is given the following challenge: 
-* starting from their position in the starting grid they must find specific spots in the mine (*loading areas*);
-* reach a loading area and collect gold;
-* go to the *unloading area* to deliver the collected gold;
-* repeat the procedure as many times as possible in a given time.
-
 Each vehicle has to be controlled by an independent program, i.e., the fleet is actually a collection of, possibly identical, programs. 
 Vehicles are allowed to communicate with each other within given restrictions. 
-Score depends on fulfilment of challenge goals and on suffered penalties.
+Score depends on fulfilment of challenge goals and on penalties.
+
+The task of the user is to develop and run the software that drives vehicles.
 
 
 ## Simulation environment
@@ -54,10 +55,25 @@ All elements into play, namely arena, obstacles, and robots, are virtual, thus t
 Hence, we use `d` as the unit of length, which corresponds to vehicles'
 diameter.
 
+
+## Arena
+
+The arena represents a mine.
+
+The arena is composed of a rectangular arena, outer delimited, with obstacles, target (*loading*) areas, a home (*unloading*) area and a starting grid inside.
+
+Obstacles are fixed elements placed within the arena to limit the robot movements.
+The target areas are circular with a beacon in its center.
+The starting grid defines the robots initial positions.
+The home area is a circle, without a beacon in its center, centered in grid position number 1.
+
+Target areas are where mining vehicles collect gold (loading); the home area is where mining vehicles deliver gold (unloading).
+
 ## Vehicles
 
-All vehicles are two-wheeled, have a circular shape and are equipped with sensors and actuators.
+All vehicles are two-wheeled, have a circular shape, and are equipped with sensors and actuators.
 Moreover, vehicles can communicate.
+Details about vehicle's equipment is given in what follows.
 
 ![Vehicle's body with sensors and actuators](img/robot_body.png)
 
@@ -181,42 +197,45 @@ Note that this provides the new vehicle position `(x , y , θ)` at the next step
 In case of a collision, the simulator applies the rotational component only.
 
 
-## Arena
+## Configuration and default values
 
-The arena represents a mine.
+The configuration of the simulation consist of three XML files: the parameter, the arena, and the grid.
 
-The arena is composed of a rectangular arena, outer delimited, with obstacles, target (*loading*) areas, a home (*unloading*) area and a starting grid inside.
+```xml
+<Lab Name="Default LAB" Height="14" Width="28">
+    <Beacon X="24" Y="7,0" Height="4,0"/>
+    <Target X="24" Y="7,0" Radius="2,0"/>
+    <Target X="7" Y="7,0" Radius="2,0"/>
+    <Wall Height="5,0">
+        <Corner X="10,0" Y="4,0"/>
+        <Corner X="11,0" Y="4,0"/>
+        <Corner X="11,0" Y="10,0"/>
+        <Corner X="10,0" Y="10,0"/>
+    </Wall>
+</Lab>
+```
 
-Obstacles are fixed elements placed within the arena to limit the robot movements.
-The target areas are circular with a beacon in its center. 
-The starting grid defines the robots initial positions. 
-The home area is a circle, without a beacon in its center, centered in grid position number 1. 
+Arena:
+```xml
+<Lab Name="Default LAB" Height="14" Width="28">
+    <Beacon X="24" Y="7,0" Height="4,0"/>
+    <Target X="24" Y="7,0" Radius="2,0"/>
+    <Target X="7" Y="7,0" Radius="2,0"/>
+    <Wall Height="5,0">
+        <Corner X="10,0" Y="4,0"/>
+        <Corner X="11,0" Y="4,0"/>
+        <Corner X="11,0" Y="10,0"/>
+        <Corner X="10,0" Y="10,0"/>
+    </Wall>
+</Lab>
+```
 
-Target areas are where mining vehicles collect gold (loading); the home area is where mining vehicles deliver gold (unloading).
-
-The following rules are observed:
-
-**Arena**
-1. The arena maximum dimension is 14x28.
-
-**Obstacles**
-2. All obstacles have planar surfaces, at least 0.3 um wide.
-3. Any passage between obstacles is at least 1.5 um wide.
-
-**Home area (unloading)**
-4. The home area radius is at least 2.0 um wide.
-5. The home area is centered in starting position number 1.
-
-**Target areas (loading)**
-6. The target area radius is at least 2.0 um wide.
-7. There is a beacon in the center of each target area.
-8. The beacon does not act as an obstacle to robot movement.
-9. The beacon range is equal to its target area radius.
-
-
-
-## Tasks
-
-The overall goal is to develop the AI of autonomous vehicles, such that they move as much gold as possible from the target positions to the unloading area in different (possible unknown) mines.
-
-More specific and detailed tasks have to be defined in your project proposal.
+```xml
+<Grid>
+    <Position X="3,0" Y="9,0" Dir="0,0"/>
+    <Position X="4,0" Y="8,0" Dir="0,0"/>
+    <Position X="5,0" Y="7,0" Dir="0,0"/>
+    <Position X="4,0" Y="6,0" Dir="0,0"/>
+    <Position X="3,0" Y="5,0" Dir="0,0"/>
+</Grid>
+```

@@ -99,7 +99,7 @@ cbRobot::cbRobot(const double irSensorAngle[]) : cbClient() {
     simulator = 0;
     name = 0;
     id = 0;
-    score = 0;
+    score = 50;
     scorePenalties = 0;
     arrivalTime = 0;
     startReturningTime = 0;
@@ -113,6 +113,8 @@ cbRobot::cbRobot(const double irSensorAngle[]) : cbClient() {
     collisionRobot = false;
     collisionPrevCycle = false;
     collisionCount = 0;
+
+    unloadingCount = 0;
 
     _state = STOPPED;
     _unstoppedState = RUNNING;
@@ -1510,7 +1512,45 @@ void cbRobot::updateStateLinePlanning2022() {
 }
 
 void cbRobot::updateStateMining2022() {
-    updateState();
+    State prevState = _state;
+    switch (_state) {
+        case RUNNING:
+            if (removed) {
+                _state = REMOVED;
+            } else if (simulator->state() == cbSimulator::STOPPED) {
+                _unstoppedState = _state;
+                _state = STOPPED;
+            } else if (targetAtPos() > 0) {
+                setReturningLed(true);
+                _state = RETURNING;
+            } else if (endLed) {
+                _state = FINISHED;
+            }
+            break;
+        case RETURNING:
+            if (removed) {
+                _state = REMOVED;
+            } else if (simulator->state() == cbSimulator::STOPPED) {
+                _unstoppedState = _state;
+                _state = STOPPED;
+            } else if (targetAtPos() == 0) {
+                unloadingCount += 1;
+                setReturningLed(false);
+                _state = RUNNING;
+            } else if (endLed) {
+                _state = FINISHED;
+            }
+            break;
+        case STOPPED:
+            if (removed) _state = REMOVED;
+            else if (simulator->state() != cbSimulator::STOPPED)
+                _state = _unstoppedState;
+            break;
+        case FINISHED:
+            if (removed) _state = REMOVED;
+        default:
+            break;
+    }
 }
 
 #define COLLISION_PENALTY   5
@@ -1643,6 +1683,29 @@ void cbRobot::updateScoreLineMappingPlanning2022() {
         default:
             break;
     }
+    emit robScoreChanged((int) score);
+}
+
+void cbRobot::updateScoreMining2022() {
+    if (isRemoved() || hasFinished()) return;
+
+    cout << _state << " " << unloadingCount << " " << unloadingReward << " " << scorePenalties << " " << score << "\n";
+
+    if (hasCollide() && !collisionPrevCycle) {
+        //DEBUG
+        //simulator->grAux->addFinalPoint(id,curPos.Coord());
+        //double distCol=simulator->grAux->dist(id);
+        //cerr << simulator->curTime() << ": R" << id << " distCol=" << distCol <<"\n";
+        //scorePenalties += COLLISION_PENALTY;
+        scorePenalties += (collisionWallPenalty * hasCollideWall()) + (collisionRobotPenalty * hasCollideRobot());
+        collisionCount++;
+
+        emit robCollisionsChanged((int) collisionCount);
+    }
+
+    collisionPrevCycle = hasCollide();
+
+    score = (unloadingReward * unloadingCount) - scorePenalties;
     emit robScoreChanged((int) score);
 }
 

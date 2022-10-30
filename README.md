@@ -6,10 +6,11 @@ YAAVS simulates the movement of autonomous vehicles inside a mine.
 Robots objective is to go from their starting position to beacon area and then return to their start position.
 
 This simulator is currently (2022) used in the *Autonomous and cooperative vehicular systems* course (DAT295/DIT669) at **Chalmers University of Technology**.
-See the [project specifications](docs/project2022.md).
+See the [project specifications](docs/2022-project-chalmers-dat295.md) for details.
 
 ## Contents
 
+* docs -                The documentation folder
 * simulator -           The simulator source code
 * Viewer -              The Visualizer source code
 * logplayer -           The logplayer source code
@@ -17,6 +18,7 @@ See the [project specifications](docs/project2022.md).
 * robsample -           robot agent (C) source code
 * jClient -             robot agent (Java) source code
 * pClient -             robot agent (Python) source code
+* build -               compiled files (initially empty)
 * Labs -                examples of labyrinths used in previous competitions
 * startAll -            script that runs the simulator, the visualizer and 5 GUISamples
 * startSimViewer -      script that runs the simulator and the Viewer
@@ -45,6 +47,10 @@ To run the simulator, Viewer and C++ agent, execute (at the repository base dir)
 ./startAll
 ```
 
+## Documentation
+
+The [YAAVS introduction](docs/yaavs_intro.md) document is in the `docs` dir.
+
 ## Credits
 
-YAAVS is based on [CiberRato](https://github.com/iris-ua/ciberRatoTools) Robot Simulation Environment by Universidade de Aveiro / IEETA.
+YAAVS is based on [CiberRatoTools](https://github.com/iris-ua/ciberRatoTools), a Robot Simulation Environment by Universidade de Aveiro / IEETA.

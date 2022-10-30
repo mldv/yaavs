@@ -976,7 +976,9 @@ void cbSimulator::UpdateScores() {
             case 6:
                 robot->updateScoreLineMappingPlanning2022(); // LINE MAPPING PLANNING
                 break;
-
+            case 7:
+                robot->updateScoreMining2022();
+                break;
             default:
                 // robot->updateScoreCompetitive();      // COMPETITIVE
                 robot->updateScore();               // COOPERATIVE
@@ -1536,6 +1538,7 @@ void cbSimulator::processEditParameters(void)
     cbRobot::collisionRobotPenalty = param->collisionRobotPenalty;
     cbRobot::targetReward = param->targetReward;
     cbRobot::homeReward = param->homeReward;
+    cbRobot::unloadingReward = 100;
 
     timer.setInterval(cycle);
 

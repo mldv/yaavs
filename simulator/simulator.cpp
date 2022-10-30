@@ -115,6 +115,7 @@ int     cbRobot::collisionWallPenalty = 2;
 int     cbRobot::collisionRobotPenalty = 2;
 int     cbRobot::targetReward = 100;
 int     cbRobot::homeReward = 100;
+int     cbRobot::unloadingReward = 100;
 
 //Requests
 unsigned int    cbRobot::maxSensorsRequested = 4;

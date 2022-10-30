@@ -1,5 +1,5 @@
 #/bin/bash
-(cd simulator; ./simulator)&
+(cd simulator; ./simulator --scoring 7 --param ../Labs/chalmersDAT295-22/C1-config.xml)&
 
 sleep 5 
 

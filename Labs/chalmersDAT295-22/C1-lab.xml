@@ -1,0 +1,31 @@
+<Lab Name="DAT295-22-1" Height="14" Width="28">
+	<Target X="3" Y="11.0" Radius="3.0"/>
+	<Beacon X="17" Y="11" Height="1.0"/>
+	<Target X="17" Y="11" Radius="1.0"/>
+	<Beacon X="9" Y="5.0" Height="1.0"/>
+	<Target X="9" Y="5.0" Radius="1.0"/>
+	<Wall Height="2.5">
+		<Corner X="24.5" Y="10.5"/>
+		<Corner X="26.0" Y="9.0"/>
+		<Corner X="27.5" Y="6.0"/>
+		<Corner X="27.5" Y="3.0"/>
+		<Corner X="28.0" Y="3.0"/>
+		<Corner X="28.0" Y="14.0"/>
+		<Corner X="25.5" Y="14.0"/>
+		<Corner X="24.0" Y="11.0"/>
+	</Wall>
+	<Row Pos="12" Pattern="           +              |              "  />
+	<Row Pos="11" Pattern="  +  +  +  +  +  +  +  +  +  +  +  +  +  "  />
+	<Row Pos="10" Pattern="                          |              "  />
+	<Row Pos="9"  Pattern="  +--+--+--+--+--+--+--+  +--+  +  +  +  "  />
+	<Row Pos="8"  Pattern="     |           |     |     |           "  />
+	<Row Pos="7"  Pattern="--+  +  +  +  +--+  +  +--+  +--+  +  +  "  />
+	<Row Pos="6"  Pattern="  |  |        |     |  |  |     |        "  />
+	<Row Pos="5"  Pattern="--+  +--+--+--+  +--+  +--+--+  +  +  +  "  />
+	<Row Pos="4"  Pattern="     |           |  |  |        |        "  />
+	<Row Pos="3"  Pattern="  +--+  +--+--+--+  +  +  +--+--+  +  +  "  />
+	<Row Pos="2"  Pattern="  |  |  |           |     |              "  />
+	<Row Pos="1"  Pattern="  +--+  +  +  +  +  +  +  +  +  +  +  +  "  />
+	<Row Pos="0"  Pattern="        |                                "  />
+</Lab>
+
