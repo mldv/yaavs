@@ -200,42 +200,78 @@ In case of a collision, the simulator applies the rotational component only.
 ## Configuration and default values
 
 The configuration of the simulation consist of three XML files: the parameter, the arena, and the grid.
+The files are self-explanatory, in what follows the default parameters.
 
+Configuration parameters:
 ```xml
-<Lab Name="Default LAB" Height="14" Width="28">
-    <Beacon X="24" Y="7,0" Height="4,0"/>
-    <Target X="24" Y="7,0" Radius="2,0"/>
-    <Target X="7" Y="7,0" Radius="2,0"/>
-    <Wall Height="5,0">
-        <Corner X="10,0" Y="4,0"/>
-        <Corner X="11,0" Y="4,0"/>
-        <Corner X="11,0" Y="10,0"/>
-        <Corner X="10,0" Y="10,0"/>
-    </Wall>
-</Lab>
+<Parameters 
+        SimTime="5000"
+        CycleTime="25"
+        CompassNoise="0" BeaconNoise="0" ObstacleNoise="0.1"
+        MotorsNoise="0" KeyTime="5000"
+        GPS="On" GPSLinNoise="0.0" GPSDirNoise="0"
+        BeaconSensor="On"
+        CompassSensor="On"
+        ScoreSensor="On" ShowActions="True" NBeacons="2"
+        NRequestsPerCycle="0"
+        ObstacleRequestable="Off" BeaconRequestable="Off"
+        GroundRequestable="Off" CompassRequestable="Off"
+        CollisionRequestable="Off"
+        ObstacleLatency="0" BeaconLatency="0"
+        GroundLatency="0" CompassLatency="0"
+        CollisionLatency="0"
+        BeaconAperture="3.141593"
+        ReturnTimePenalty="25" ArrivalTimePenalty="100"
+        CollisionWallPenalty="2" CollisionRobotPenalty="1"
+        TargetReward="100" HomeReward="100"
+        Lab="../Labs/chalmersDAT295-22/C1-lab.xml"
+        Grid="../Labs/chalmersDAT295-22/C1-grid.xml"
+/>
 ```
 
 Arena:
 ```xml
-<Lab Name="Default LAB" Height="14" Width="28">
-    <Beacon X="24" Y="7,0" Height="4,0"/>
-    <Target X="24" Y="7,0" Radius="2,0"/>
-    <Target X="7" Y="7,0" Radius="2,0"/>
-    <Wall Height="5,0">
-        <Corner X="10,0" Y="4,0"/>
-        <Corner X="11,0" Y="4,0"/>
-        <Corner X="11,0" Y="10,0"/>
-        <Corner X="10,0" Y="10,0"/>
+<Lab Name="DAT295-22-1" Height="14" Width="28">
+    <Target X="3" Y="11.0" Radius="3.0"/>
+    <Beacon X="17" Y="11" Height="1.0"/>
+    <Target X="17" Y="11" Radius="1.0"/>
+    <Beacon X="9" Y="5.0" Height="1.0"/>
+    <Target X="9" Y="5.0" Radius="1.0"/>
+    <Wall Height="2.5">
+        <Corner X="24.5" Y="10.5"/>
+        <Corner X="26.0" Y="9.0"/>
+        <Corner X="27.5" Y="6.0"/>
+        <Corner X="27.5" Y="3.0"/>
+        <Corner X="28.0" Y="3.0"/>
+        <Corner X="28.0" Y="14.0"/>
+        <Corner X="25.5" Y="14.0"/>
+        <Corner X="24.0" Y="11.0"/>
     </Wall>
+    <Row Pos="12" Pattern="           +              |              "  />
+    <Row Pos="11" Pattern="  +  +  +  +  +  +  +  +  +  +  +  +  +  "  />
+    <Row Pos="10" Pattern="                          |              "  />
+    <Row Pos="9"  Pattern="  +--+--+--+--+--+--+--+  +--+  +  +  +  "  />
+    <Row Pos="8"  Pattern="     |           |     |     |           "  />
+    <Row Pos="7"  Pattern="--+  +  +  +  +--+  +  +--+  +--+  +  +  "  />
+    <Row Pos="6"  Pattern="  |  |        |     |  |  |     |        "  />
+    <Row Pos="5"  Pattern="--+  +--+--+--+  +--+  +--+--+  +  +  +  "  />
+    <Row Pos="4"  Pattern="     |           |  |  |        |        "  />
+    <Row Pos="3"  Pattern="  +--+  +--+--+--+  +  +  +--+--+  +  +  "  />
+    <Row Pos="2"  Pattern="  |  |  |           |     |              "  />
+    <Row Pos="1"  Pattern="  +--+  +  +  +  +  +  +  +  +  +  +  +  "  />
+    <Row Pos="0"  Pattern="        |                                "  />
 </Lab>
+
+
 ```
 
+Starting grid:
 ```xml
 <Grid>
-    <Position X="3,0" Y="9,0" Dir="0,0"/>
-    <Position X="4,0" Y="8,0" Dir="0,0"/>
-    <Position X="5,0" Y="7,0" Dir="0,0"/>
-    <Position X="4,0" Y="6,0" Dir="0,0"/>
-    <Position X="3,0" Y="5,0" Dir="0,0"/>
+    <Position X="3.0" Y="11.0"  Dir="0.0"/>
+    <Position X="5.0" Y="11.0"  Dir="0.0"/>
+    <Position X="7.0" Y="11.0"  Dir="0.0"/>
+    <Position X="3.0" Y="13.0"  Dir="0.0"/>
+    <Position X="5.0" Y="13.0"  Dir="0.0"/>
 </Grid>
 ```
