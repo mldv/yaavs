@@ -245,7 +245,7 @@ protected:  // class data members
 	vector<cbBeaconSensor *> beaconSensors;
 	cbIRSensor *irSensors[NUM_IR_SENSORS];
 	cbGPSSensor *GPSSensor;
-	cbLineSensor *lineSensor;
+	// cbLineSensor *lineSensor;
 
 	vector <cbSensor *> sensors;  // all robot sensors should have their pointer added to this vector
 

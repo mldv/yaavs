@@ -249,8 +249,8 @@ void cbBeaconSensor::update()
 	}
 	else {
              double distRobotToBeacon = robot->Center().distance(b->Center());
-             if( distRobotToBeacon > 1e10 ) {   // BEACON_DISTANCE_LIMIT 5.0 for CiberRato competitions
-	         resetBeaconVisible();
+             if( distRobotToBeacon > 1 ) {   // TODO: parametrize this distance
+	            resetBeaconVisible();
              }
              else {
 	     //check if there is a wall hiding beacon

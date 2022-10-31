@@ -641,6 +641,8 @@ void cbSimulator::step()
 		UpdateSensors();
 		//cout.form("Updating scores (%u)\n", curCycle);
 		UpdateScores();
+
+        SendSensors();
 	}
 	else
 	{
@@ -649,8 +651,6 @@ void cbSimulator::step()
 		UpdateSensors();
 	}
 
-	//cout.form("Sending sensors to robots(%u)\n", curCycle);
-	SendSensors();
 	//cout.form("Updating views (%u)\n", curCycle);
 	UpdateViews();
 	//cout.form("Updating state (%u)\n", curCycle);
@@ -1004,7 +1004,7 @@ void cbSimulator::UpdateSensors()
 
 /*!
 	Intruct each active robot to send measures to its client.
-	A robot is active if it is not removed not finnished.
+	A robot is active if it is not removed not finished.
 */
 void cbSimulator::SendSensors()
 {

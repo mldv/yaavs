@@ -88,12 +88,12 @@ cbRobot::cbRobot(const double irSensorAngle[]) : cbClient() {
     GPSSensor->setRequestable(cbGPSSensor::sensorRequestable);
     GPSSensor->setFifoLatency(cbGPSSensor::sensorLatency);
 
-    lineSensor = new cbLineSensor(this, "LineSensor");
-    sensors.push_back(lineSensor);
-
-    lineSensor->setRequestable(cbLineSensor::sensorRequestable);
-    lineSensor->setFifoLatency(cbLineSensor::sensorLatency);
-    lineSensor->setPosition(0.438); // Adjusted for 7 elements and 0.08 interelemdist
+//    lineSensor = new cbLineSensor(this, "LineSensor");
+//    sensors.push_back(lineSensor);
+//
+//    lineSensor->setRequestable(cbLineSensor::sensorRequestable);
+//    lineSensor->setFifoLatency(cbLineSensor::sensorLatency);
+//    lineSensor->setPosition(0.438); // Adjusted for 7 elements and 0.08 interelemdist
 
 
     simulator = 0;
@@ -1857,14 +1857,14 @@ void cbRobot::sendSensors() {
         }
     }
 
-    //LineSensor
-    char lineSensorStr[NLINESENSORELEMENTS + 1] = "";
-    for (int i = 0; i < NLINESENSORELEMENTS; i++) {
-        strcat(lineSensorStr, lineSensor->Value()[i] ? "1" : "0");
-    }
-    if (!lineSensor->requestable || lineSensor->requested) {
-        n += sprintf(xml + n, "\t\t<LineSensor Value=\"%s\" />\n", lineSensorStr);
-    }
+    //LineSensor - disabled
+//    char lineSensorStr[NLINESENSORELEMENTS + 1] = "";
+//    for (int i = 0; i < NLINESENSORELEMENTS; i++) {
+//        strcat(lineSensorStr, lineSensor->Value()[i] ? "1" : "0");
+//    }
+//    if (!lineSensor->requestable || lineSensor->requested) {
+//        n += sprintf(xml + n, "\t\t<LineSensor Value=\"%s\" />\n", lineSensorStr);
+//    }
 
     //Message
     unsigned int nRobots = simulator->Robots().size();
