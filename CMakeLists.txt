@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(ciberRatoTools)
+project(yaavs)
 
 # Compile in Release by default
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -27,6 +27,8 @@ add_compile_options(-DTRUE=1 -DFALSE=0)
 add_subdirectory(simulator)
 add_subdirectory(Viewer)
 add_subdirectory(libRobSock)
-add_subdirectory(logplayer)
 add_subdirectory(robsample)
 add_subdirectory(GUISample)
+
+# Disabled temporarily
+# add_subdirectory(logplayer)
