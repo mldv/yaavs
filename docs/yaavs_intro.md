@@ -69,6 +69,8 @@ The home area is a circle, without a beacon in its center, centered in grid posi
 
 Target areas are where mining vehicles collect gold (loading); the home area is where mining vehicles deliver gold (unloading).
 
+![Example of an arena with five mining vehicles](img/arena_mine.png)
+
 ## Vehicles
 
 All vehicles are two-wheeled, have a circular shape, and are equipped with sensors and actuators.
@@ -112,7 +114,8 @@ When the simulation starts, the arena is randomly positioned in the world, being
 
 #### Ground sensor
 It is a device that detects if the robot is completely over the target area or the home area. 
-It is a boolean measure and no noise is applied to this sensor.
+The ground sensor return an integer, which corresponds to the target ID.
+
 
 #### Beacon sensor
 It is positioned in the center of the robot, and has an omnidirectional covering.

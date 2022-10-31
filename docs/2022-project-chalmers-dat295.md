@@ -37,9 +37,14 @@ There are sample agents to start with, that are written in C, C++, Java, and Pyt
 
 ## Details
 
-The YAAVS software has many configuration parameters, see the [documentation](yaavs_intro.md) for more details.
-
-The exact configuration (i.e., the noises characterization, the availability of sensors, the preliminary knowledge of the arena, etc.) can be discussed in the project proposal.
-
 The overall goal is to develop the AI of autonomous vehicles, such that they move as much gold as possible from the target positions to the unloading area in different (possible unknown) mines.
 More specific and detailed tasks have to be defined in the project proposal.
+
+The YAAVS software has many configuration parameters, see the [documentation](yaavs_intro.md) for more details.
+The exact configuration (i.e., the noises characterization, the availability of sensors, the preliminary knowledge of the arena, etc.) can be discussed in the project proposal.
+
+Configuration's rules for this project:
+- The first target area defined in the lab is the home area (for unloading). There is no beacon inside the home area. It is circular and centered in the first grid position.
+- The other target areas are loading areas (with gold). They are circular with radius 1. There is a beacon inside, which is detectable from a distance equal to 1. Note that a vehicle can detect the beacon when its center is over the target area (no need for the robot th be entirely inside the target area).
+- The ID of the home area is 0, while the ID of the loading areas are >0. The ground sensor returns this ID (or -1 if the robot is not on a target area), so it can be used by vehicles to understand on which type of ground they are.
+- Target areas do not overlap.
