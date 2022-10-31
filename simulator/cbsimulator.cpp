@@ -1538,7 +1538,7 @@ void cbSimulator::processEditParameters(void)
     cbRobot::collisionRobotPenalty = param->collisionRobotPenalty;
     cbRobot::targetReward = param->targetReward;
     cbRobot::homeReward = param->homeReward;
-    cbRobot::unloadingReward = 100;
+    cbRobot::unloadingReward = param->unloadingReward;
 
     timer.setInterval(cycle);
 

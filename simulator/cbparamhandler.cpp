@@ -152,6 +152,8 @@ bool cbParamHandler::startElement( const QString&, const QString&, const QString
         if (!targetReward.isNull()) param->targetReward = targetReward.toInt();
         const QString &homeReward = attr.value(QString("HomeReward"));
         if (!homeReward.isNull()) param->homeReward = homeReward.toInt();
+        const QString &unloadingReward = attr.value(QString("UnloadingReward"));
+        if (!unloadingReward.isNull()) param->unloadingReward = unloadingReward.toInt();
 
 		const QString &labfn = attr.value(QString("Lab"));
 		if (!labfn.isNull()) param->labFilename = labfn;

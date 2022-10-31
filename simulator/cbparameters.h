@@ -61,6 +61,7 @@ public:
     int collisionRobotPenalty;
     int targetReward;
     int homeReward;
+    int unloadingReward;
 	
 	double beaconAperture;
 

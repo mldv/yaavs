@@ -1689,14 +1689,10 @@ void cbRobot::updateScoreLineMappingPlanning2022() {
 void cbRobot::updateScoreMining2022() {
     if (isRemoved() || hasFinished()) return;
 
-    cout << _state << " " << unloadingCount << " " << unloadingReward << " " << scorePenalties << " " << score << "\n";
+    // DEBUG
+    // cout << _state << " " << unloadingCount << " " << unloadingReward << " " << scorePenalties << " " << score << "\n";
 
     if (hasCollide() && !collisionPrevCycle) {
-        //DEBUG
-        //simulator->grAux->addFinalPoint(id,curPos.Coord());
-        //double distCol=simulator->grAux->dist(id);
-        //cerr << simulator->curTime() << ": R" << id << " distCol=" << distCol <<"\n";
-        //scorePenalties += COLLISION_PENALTY;
         scorePenalties += (collisionWallPenalty * hasCollideWall()) + (collisionRobotPenalty * hasCollideRobot());
         collisionCount++;
 
@@ -1705,8 +1701,10 @@ void cbRobot::updateScoreMining2022() {
 
     collisionPrevCycle = hasCollide();
 
+    int prev_score = score;
     score = (unloadingReward * unloadingCount) - scorePenalties;
-    emit robScoreChanged((int) score);
+    if (score != prev_score)
+        emit robScoreChanged((int) score);
 }
 
 
