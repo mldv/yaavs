@@ -275,3 +275,108 @@ Starting grid:
     <Position X="5.0" Y="13.0"  Dir="0.0"/>
 </Grid>
 ```
+
+## Communication protocol
+
+Communication between simulator and agents is based on UDP sockets, being the messages formatted into XML structures. 
+There are five message tags to consider: 
+- [request for registry](#request-for-registry), 
+- [grant response](#grant-response), 
+- [refusal response](#refusal-response), 
+- [sensor data](#sensor-data), and 
+- [actuation orders](#actuating-orders). 
+
+Note that you need to implement the communication protocol only if you use a programming language different from C, C++, Java, or Python. Otherwise, you can use the available implementations (see example robots).
+
+### Request for registry
+The agent registers itself on the simulator sending a request for registry message to port 6000 of the IP address of the computer running the simulator. The message looks like
+```xml
+<Robot Name="name" Id="pos">
+    <IRSensor Id="sid" Angle="sangle"/>
+    .
+    .
+    .
+</Robot>
+```
+
+where:
+- `name` is the robot name, the one appearing in the scoreboard;
+- `pos` is the robot position in the starting grid;
+- `sid` is the id of an obstacle sensor, ranging from 0 to 3;
+- `sangle` is the angular position of the sensor in robot periphery, ranging from -180.0 to +180.0.
+
+Tags IRSensor are optional. You must use them if you want to change the default position of the obstacle sensors.
+
+### Refusal response
+If the simulator refuses the request for registry it sends to the agent the message
+```xml
+<Reply Status="Refused"></Reply>
+```
+
+### Grant response
+If the simulator accepts the request for registry it sends to the agent the message
+```xml
+<Reply Status="Ok">
+    <Parameters SimTime="time" KeyTime="time" CycleTime="time"
+    NBeacons="nbeacons"
+    BeaconNoise="noise" CompassNoise="noise"
+    ObstacleNoise="noise" MotorsNoise="noise" />
+</Reply>
+```
+where
+- `time` is an integer value, representing a time, in unit-of-time;
+- `nbeacons` is the number of beacons/target area;
+- `noise` is a real value, representing a noise level.
+
+The agent must memorize the port where this response came from and send all new messages to there.
+
+### Sensor data
+After registration, the simulator, at every cycle, sends to the robot a message with sensor data. 
+The message sent is a subset of the one shown bellow, the subset depending on the sensor requests received.
+```xml
+<Measures Time="time">
+    <Sensors Compass="angle" Collision="yesno" Ground="targetid">
+        <BeaconSensor Id="0" Value="beaconmeasure"/>
+        <IRSensor Id="0" Value="irmeasure"/>
+        <IRSensor Id="1" Value="irmeasure"/>
+        <IRSensor Id="2" Value="irmeasure"/>
+        <IRSensor Id="3" Value="irmeasure"/>
+        <GPS X="coord" Y="coord"/>
+        <Message From="robotid"><![CDATA[msg]]></Message>
+    </Sensors>
+    <Leds EndLed="onoff" VisitingLed="onoff" ReturningLed="onoff"/>
+    <Buttons Start="onoff" Stop="onoff"/>
+</Measures>
+```
+where
+- `time` is an integer value representing a time;
+- `angle` is a real value representing an angle, in radians;
+- `yesno` is the word "Yes" or "No";
+- `targetid` is an integer: 0 if the robot is completely inside the home area, >0 if it is completely inside a target area (the value represents the ID of the target area) and −1 otherwise;
+- `beaconmeasure` is a real value representing a beacon sensor measure, if beacon is visible, or the word "NotVisible" otherwise;
+- `irmeasure` is a real number, representing an obstacle sensor measure;
+- `coord` is a real number, representing a GPS spatial position;
+- `msg` is the message broadcast by robot number robotid;
+- `onoff` is the word "On" or "Off", representing a LED or button state.
+
+### Actuating orders
+At each cycle, agents can send to the simulator one or more actuating orders. 
+However, the number of orders per device is limited to one. If more than one is received, only the last one will be considered. 
+Each actuating order message is a subset of
+```xml
+<Actions LeftMotor="pow" RightMotor="pow" EndLed="act">
+    <SensorRequests IRSensor0="Yes" IRSensor1="Yes"
+    Beacon0="Yes"
+    Ground="Yes" Compass="Yes"/>
+    <Say><![CDATA[msg]]></Say>
+</Actions>
+```
+where
+- `pow` is a real value, representing a power;
+- `act` is the word "On" or "Off", representing an order to turn-on or turn-off a LED;
+- `msg` is the message to be broadcast; 
+
+The number of sensor requests per cycle can be limited in number (is a configuration setting), if more are requested, an arbitrary subset with the maximum dimension allowed is considered.
+Motor orders are persistent, in the sense that the order is kept until a new one is received by the simulator.
+Sensor requests are not persistent. 
+If an agent wants to read the same sensors in two or more consecutive cycles, it needs to send the sensor requests on each cycle.

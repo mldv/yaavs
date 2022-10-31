@@ -1,9 +1,15 @@
 <Lab Name="DAT295-22-1" Height="14" Width="28">
+	<!-- Home area for unloading -->
 	<Target X="3" Y="11.0" Radius="2.0"/>
-	<Beacon X="17" Y="11" Height="1.0"/>
+
+	<!-- Target areas for loading -->
 	<Target X="17" Y="11" Radius="1.0"/>
-	<Beacon X="9" Y="5.0" Height="1.0"/>
+	<Beacon X="17" Y="11" Height="1.0"/>
+	<Target X="15" Y="11" Radius="1.0"/>
+	<Beacon X="15" Y="11" Height="1.0"/>
 	<Target X="9" Y="5.0" Radius="1.0"/>
+	<Beacon X="9" Y="5.0" Height="1.0"/>
+
 	<Row Pos="12" Pattern="                          |              "  />
 	<Row Pos="11" Pattern="  +  +  +  +  +  +  +  +  +  +  +  +  +  "  />
 	<Row Pos="10" Pattern="                          |              "  />

@@ -12,7 +12,7 @@
 		CompassSensor="On"
 		ScoreSensor="On"
 		ShowActions="True"
-		NBeacons="2"
+		NBeacons="3"
 		NRequestsPerCycle="0"
 		ObstacleRequestable="Off"
 		BeaconRequestable="Off"
