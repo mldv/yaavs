@@ -1703,8 +1703,8 @@ void cbRobot::updateScoreMining2022() {
 
     int prev_score = score;
     score = (unloadingReward * unloadingCount) - scorePenalties;
-    if (score != prev_score)
-        emit robScoreChanged((int) score);
+    // if (score != prev_score)
+    emit robScoreChanged((int) score);
 }
 
 

@@ -1,7 +1,7 @@
 
 # YAAVS description
 
-YAAVS is the acronym of Yet Another Autonomous Vehicle Simulator.
+YAAVS is the acronym of Yet Another Autonomous Vehicles Simulator.
 This software is based on the [CiberRato](https://github.com/iris-ua/ciberRatoTools) Robot Simulation Environment by Universidade de Aveiro / IEETA.
 
 ## Introduction
@@ -113,8 +113,8 @@ It is located at the robot center.
 When the simulation starts, the arena is randomly positioned in the world, being the origin coordinates (the left, bottom corner) assigned a pair of values in the range 0–1000. 
 
 #### Ground sensor
-It is a device that detects if the robot is completely over the target area or the home area. 
-The ground sensor return an integer, which corresponds to the target ID.
+It is a device that detects if the robot is completely on a target area or the home area. 
+The ground sensor return an integer >=0, which corresponds to the target ID, or -1 when the robot is not completely on a target/home area.
 
 
 #### Beacon sensor
@@ -127,7 +127,7 @@ A beacon is not detected by the beacon sensor, if
 
 ### Actuators
 
-The virtual robot has two motors and three signalling LEDs. 
+The virtual robot has two motors, each driving a wheel. 
 
 #### Motors
 The motors try to represent, although roughly, real motors. 
@@ -146,17 +146,21 @@ A power order applied to a motor keeps in effect until a new order is given.
 In other words, if an agent applies a given power to a motor at a given time step, that power will be continuously applied in the following time steps until a new power order is sent by the agent.
 
 
-#### LEDs
+### LEDs
+
+Vehicles are equipped with three signalling LEDs.
+
 The 3 LEDs are named:
 - *visiting led*, 
 - *returning led*, and
 - *end led*.
 
-They are used to notify the simulator of a change in the robot status (e.g., if it is loaded with gold). 
-The way they must be used depends on the competition challenge.
+The status of the LEDs can be set both by the agent or by the simulator, depending on the circumstances. 
+They are used to notify the simulator or the agent of a change in the robot status (e.g., if it is loaded with gold). 
+The way they must be used depends on the configuration.
 
 
-### Communication
+### Communication between vehicles
 
 Vehicles are equipped with a broadcast communication system. 
 
@@ -199,85 +203,6 @@ where `d` is the vehicle's diameter.
 Note that this provides the new vehicle position `(x , y , θ)` at the next step, **if no collisions occur**. 
 In case of a collision, the simulator applies the rotational component only.
 
-
-## Configuration and default values
-
-The configuration of the simulation consist of three XML files: the parameter, the arena, and the grid.
-The files are self-explanatory, in what follows the default parameters.
-
-Configuration parameters:
-```xml
-<Parameters 
-        SimTime="5000"
-        CycleTime="25"
-        CompassNoise="0" BeaconNoise="0" ObstacleNoise="0.1"
-        MotorsNoise="0" KeyTime="5000"
-        GPS="On" GPSLinNoise="0.0" GPSDirNoise="0"
-        BeaconSensor="On"
-        CompassSensor="On"
-        ScoreSensor="On" ShowActions="True" NBeacons="2"
-        NRequestsPerCycle="0"
-        ObstacleRequestable="Off" BeaconRequestable="Off"
-        GroundRequestable="Off" CompassRequestable="Off"
-        CollisionRequestable="Off"
-        ObstacleLatency="0" BeaconLatency="0"
-        GroundLatency="0" CompassLatency="0"
-        CollisionLatency="0"
-        BeaconAperture="3.141593"
-        ReturnTimePenalty="25" ArrivalTimePenalty="100"
-        CollisionWallPenalty="2" CollisionRobotPenalty="1"
-        TargetReward="100" HomeReward="100"
-        Lab="../Labs/chalmersDAT295-22/C1-lab.xml"
-        Grid="../Labs/chalmersDAT295-22/C1-grid.xml"
-/>
-```
-
-Arena:
-```xml
-<Lab Name="DAT295-22-1" Height="14" Width="28">
-    <Target X="3" Y="11.0" Radius="3.0"/>
-    <Beacon X="17" Y="11" Height="1.0"/>
-    <Target X="17" Y="11" Radius="1.0"/>
-    <Beacon X="9" Y="5.0" Height="1.0"/>
-    <Target X="9" Y="5.0" Radius="1.0"/>
-    <Wall Height="2.5">
-        <Corner X="24.5" Y="10.5"/>
-        <Corner X="26.0" Y="9.0"/>
-        <Corner X="27.5" Y="6.0"/>
-        <Corner X="27.5" Y="3.0"/>
-        <Corner X="28.0" Y="3.0"/>
-        <Corner X="28.0" Y="14.0"/>
-        <Corner X="25.5" Y="14.0"/>
-        <Corner X="24.0" Y="11.0"/>
-    </Wall>
-    <Row Pos="12" Pattern="           +              |              "  />
-    <Row Pos="11" Pattern="  +  +  +  +  +  +  +  +  +  +  +  +  +  "  />
-    <Row Pos="10" Pattern="                          |              "  />
-    <Row Pos="9"  Pattern="  +--+--+--+--+--+--+--+  +--+  +  +  +  "  />
-    <Row Pos="8"  Pattern="     |           |     |     |           "  />
-    <Row Pos="7"  Pattern="--+  +  +  +  +--+  +  +--+  +--+  +  +  "  />
-    <Row Pos="6"  Pattern="  |  |        |     |  |  |     |        "  />
-    <Row Pos="5"  Pattern="--+  +--+--+--+  +--+  +--+--+  +  +  +  "  />
-    <Row Pos="4"  Pattern="     |           |  |  |        |        "  />
-    <Row Pos="3"  Pattern="  +--+  +--+--+--+  +  +  +--+--+  +  +  "  />
-    <Row Pos="2"  Pattern="  |  |  |           |     |              "  />
-    <Row Pos="1"  Pattern="  +--+  +  +  +  +  +  +  +  +  +  +  +  "  />
-    <Row Pos="0"  Pattern="        |                                "  />
-</Lab>
-
-
-```
-
-Starting grid:
-```xml
-<Grid>
-    <Position X="3.0" Y="11.0"  Dir="0.0"/>
-    <Position X="5.0" Y="11.0"  Dir="0.0"/>
-    <Position X="7.0" Y="11.0"  Dir="0.0"/>
-    <Position X="3.0" Y="13.0"  Dir="0.0"/>
-    <Position X="5.0" Y="13.0"  Dir="0.0"/>
-</Grid>
-```
 
 ## Communication protocol
 
@@ -383,3 +308,88 @@ The number of sensor requests per cycle can be limited in number (is a configura
 Motor orders are persistent, in the sense that the order is kept until a new one is received by the simulator.
 Sensor requests are not persistent. 
 If an agent wants to read the same sensors in two or more consecutive cycles, it needs to send the sensor requests on each cycle.
+
+
+## Configuration and default values
+
+The configuration of the simulation is specified by the *scoring system* and three XML files: the parameter, the arena, and the grid.
+
+The scoring system needs to be specified as an integer of the `--scoring` argument of the simulator program.
+The last version of the scoring system is v7: `--scoring 7`, which is also the default value.
+
+The XML files are self-explanatory, in what follows the default parameters.
+
+
+Configuration parameters:
+```xml
+<Parameters 
+        SimTime="5000"
+        CycleTime="25"
+        CompassNoise="0" BeaconNoise="0" ObstacleNoise="0.1"
+        MotorsNoise="0" KeyTime="5000"
+        GPS="On" GPSLinNoise="0.0" GPSDirNoise="0"
+        BeaconSensor="On"
+        CompassSensor="On"
+        ScoreSensor="On" ShowActions="True" NBeacons="2"
+        NRequestsPerCycle="0"
+        ObstacleRequestable="Off" BeaconRequestable="Off"
+        GroundRequestable="Off" CompassRequestable="Off"
+        CollisionRequestable="Off"
+        ObstacleLatency="0" BeaconLatency="0"
+        GroundLatency="0" CompassLatency="0"
+        CollisionLatency="0"
+        BeaconAperture="3.141593"
+        ReturnTimePenalty="25" ArrivalTimePenalty="100"
+        CollisionWallPenalty="2" CollisionRobotPenalty="1"
+        TargetReward="100" HomeReward="100"
+        Lab="../Labs/chalmersDAT295-22/C1-lab.xml"
+        Grid="../Labs/chalmersDAT295-22/C1-grid.xml"
+/>
+```
+
+Arena:
+```xml
+<Lab Name="DAT295-22-1" Height="14" Width="28">
+    <Target X="3" Y="11.0" Radius="3.0"/>
+    <Beacon X="17" Y="11" Height="1.0"/>
+    <Target X="17" Y="11" Radius="1.0"/>
+    <Beacon X="9" Y="5.0" Height="1.0"/>
+    <Target X="9" Y="5.0" Radius="1.0"/>
+    <Wall Height="2.5">
+        <Corner X="24.5" Y="10.5"/>
+        <Corner X="26.0" Y="9.0"/>
+        <Corner X="27.5" Y="6.0"/>
+        <Corner X="27.5" Y="3.0"/>
+        <Corner X="28.0" Y="3.0"/>
+        <Corner X="28.0" Y="14.0"/>
+        <Corner X="25.5" Y="14.0"/>
+        <Corner X="24.0" Y="11.0"/>
+    </Wall>
+    <Row Pos="12" Pattern="           +              |              "  />
+    <Row Pos="11" Pattern="  +  +  +  +  +  +  +  +  +  +  +  +  +  "  />
+    <Row Pos="10" Pattern="                          |              "  />
+    <Row Pos="9"  Pattern="  +--+--+--+--+--+--+--+  +--+  +  +  +  "  />
+    <Row Pos="8"  Pattern="     |           |     |     |           "  />
+    <Row Pos="7"  Pattern="--+  +  +  +  +--+  +  +--+  +--+  +  +  "  />
+    <Row Pos="6"  Pattern="  |  |        |     |  |  |     |        "  />
+    <Row Pos="5"  Pattern="--+  +--+--+--+  +--+  +--+--+  +  +  +  "  />
+    <Row Pos="4"  Pattern="     |           |  |  |        |        "  />
+    <Row Pos="3"  Pattern="  +--+  +--+--+--+  +  +  +--+--+  +  +  "  />
+    <Row Pos="2"  Pattern="  |  |  |           |     |              "  />
+    <Row Pos="1"  Pattern="  +--+  +  +  +  +  +  +  +  +  +  +  +  "  />
+    <Row Pos="0"  Pattern="        |                                "  />
+</Lab>
+
+
+```
+
+Starting grid:
+```xml
+<Grid>
+    <Position X="3.0" Y="11.0"  Dir="0.0"/>
+    <Position X="5.0" Y="11.0"  Dir="0.0"/>
+    <Position X="7.0" Y="11.0"  Dir="0.0"/>
+    <Position X="3.0" Y="13.0"  Dir="0.0"/>
+    <Position X="5.0" Y="13.0"  Dir="0.0"/>
+</Grid>
+```

@@ -48,3 +48,5 @@ Configuration's rules for this project:
 - The other target areas are loading areas (with gold). They are circular with radius 1. There is a beacon inside, which is detectable from a distance equal to 1. Note that a vehicle can detect the beacon when its center is over the target area (no need for the robot th be entirely inside the target area).
 - The ID of the home area is 0, while the ID of the loading areas are >0. The ground sensor returns this ID (or -1 if the robot is not on a target area), so it can be used by vehicles to understand on which type of ground they are.
 - Target areas do not overlap.
+- The loading status of vehicles is set by the simulator using the *returning LED*: the LED is ON when the vehicle is loaded. The LED is turned on/off automatically by the simulator as soon as a vehicle is: (i) unloaded on a loading area (the LED is turned on), (ii) loaded on the unloading area (the LED is turned off).
+- The scoring system is the n.7 (the `--scoring 7` for the simulator), which is currently the default value.

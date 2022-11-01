@@ -168,7 +168,7 @@ cbSimulator::cbSimulator()
     xmlParserLab.setContentHandler(labHandler);
     xmlParserGrid.setContentHandler(gridHandler);
 
-    scoring = 0;
+    scoring = 7;  //MDV: Mining scoring as default
 
     if(xmlParserParam.parse(*sourceParam))
         defaultParam = paramHandler->parsedParameters();
