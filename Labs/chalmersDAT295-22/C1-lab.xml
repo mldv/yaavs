@@ -5,8 +5,10 @@
 	<!-- Target areas for loading -->
 	<Target X="17" Y="11" Radius="1.0"/>
 	<Beacon X="17" Y="11" Height="1.0"/>
+
 	<Target X="15" Y="11" Radius="1.0"/>
 	<Beacon X="15" Y="11" Height="1.0"/>
+
 	<Target X="9" Y="5.0" Radius="1.0"/>
 	<Beacon X="9" Y="5.0" Height="1.0"/>
 
